@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class Stats
 {
-    private static float momentum = 15;
+    private static float momentum = 10;
     private static int stamina = 5;
     private static int difficulty = 1;
     private static int score = 0;
