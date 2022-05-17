@@ -7,7 +7,7 @@ public static class Stats
 
     public static int currentMomentumUpgrade, currentStaminaUpgrade, currentDifficultyUpgrade;
     public static int runs;
-    private static float momentum = 10;
+    private static float momentum = 50;
     private static int stamina = 5;
     private static int difficulty = 1;
     private static int score = 0;
