@@ -2289,6 +2289,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 108847241, guid: 6fcf18c1b3a31404e8aed42d52ef853a, type: 3}
+      propertyPath: m_UseWorldSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108847241, guid: 6fcf18c1b3a31404e8aed42d52ef853a, type: 3}
+      propertyPath: m_Positions.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 108847241, guid: 6fcf18c1b3a31404e8aed42d52ef853a, type: 3}
+      propertyPath: m_Parameters.numCapVertices
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4920040397654916980, guid: 6fcf18c1b3a31404e8aed42d52ef853a, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -2336,6 +2348,18 @@ PrefabInstance:
     - target: {fileID: 4920040397654916981, guid: 6fcf18c1b3a31404e8aed42d52ef853a, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4920040397654916983, guid: 6fcf18c1b3a31404e8aed42d52ef853a, type: 3}
+      propertyPath: power
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4920040397654916983, guid: 6fcf18c1b3a31404e8aed42d52ef853a, type: 3}
+      propertyPath: thresholdTriggerTwo
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4920040397654916983, guid: 6fcf18c1b3a31404e8aed42d52ef853a, type: 3}
+      propertyPath: thresholdTriggerThree
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fcf18c1b3a31404e8aed42d52ef853a, type: 3}

@@ -9,6 +9,20 @@ public static class Stats
     private static int difficulty = 1;
     private static int score = 0;
 
+    private static int currentTutorialScene = 0;
+
+    public static int GetCurrentTutorialScene()
+    {
+        return currentTutorialScene;
+    }
+    public static void SetTutorialScene()
+    {
+        currentTutorialScene++;
+        if (currentTutorialScene > 5)
+        {
+            currentTutorialScene = 0;
+        }
+    }
     public static float GetMomentum()
     {
         return momentum;
@@ -46,6 +60,4 @@ public static class Stats
         difficulty += change;
         return difficulty;
     }
-
-
 }

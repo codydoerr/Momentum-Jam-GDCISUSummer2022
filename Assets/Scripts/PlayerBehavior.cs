@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
-    public float power = 10f;
+    public float power;
+
+    public int thresholdTriggerTwo;
+    public int thresholdTriggerThree;
     public Rigidbody2D rb;
+    public LineRenderer lr;
 
     public int maxStamina;
     public int curStamina;
@@ -26,9 +30,9 @@ public class PlayerBehavior : MonoBehaviour
     Vector2 force;
     Vector3 startPoint;
     Vector3 endPoint;
-
     private void Start()
     {
+        lr = GetComponent<LineRenderer>();
         cam = Camera.main;
 
         moving = false;
@@ -42,11 +46,6 @@ public class PlayerBehavior : MonoBehaviour
         maxStamina = Stats.GetStamina();
 
         startLocation = transform.position;
-
-
-
-
-
     }
 
     private void Update()
@@ -54,25 +53,36 @@ public class PlayerBehavior : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !moving)
         {
             startPoint = cam.ScreenToWorldPoint(Input.mousePosition);
+            startPoint.z = 15;
             Debug.Log(startPoint);
         }
+
         if (Input.GetMouseButtonUp(0) && !moving)
         {
             endPoint = cam.ScreenToWorldPoint(Input.mousePosition);
             Debug.Log(endPoint);
             float distance = Vector3.Distance(Camera.main.ScreenToWorldPoint(startPoint), Camera.main.ScreenToWorldPoint(endPoint));
             Debug.Log(distance);
-            if (distance > .05f) { 
-                force = new Vector2(Mathf.Clamp(startPoint.x - endPoint.x, minPower.x, maxPower.x), Mathf.Clamp(startPoint.y - endPoint.y, minPower.y, maxPower.y));
-                rb.AddForce(force * power, ForceMode2D.Impulse);
-                moving = true;
-                curStamina--;
-                if(curStamina <= 0)
-                {
-                    Debug.Log("Ran Out of Stamina");
-                    // pop up lose screen
-                }
+            force = new Vector2(Mathf.Clamp(startPoint.x - endPoint.x, minPower.x, maxPower.x), Mathf.Clamp(startPoint.y - endPoint.y, minPower.y, maxPower.y));
+
+            rb.AddForce(force * power, ForceMode2D.Impulse);
+            moving = true;
+            curStamina--;
+            if(curStamina <= 0)
+            {
+                Debug.Log("Ran Out of Stamina");
+                // pop up lose screen
             }
+        }
+        if (Input.GetMouseButton(0))
+        {
+            Vector3 currentPoint = cam.ScreenToWorldPoint(Input.mousePosition);
+            currentPoint.z = 15;
+            RenderLine(startPoint, currentPoint);
+        }
+        else
+        {
+            EndLine();
         }
         if (rb.velocity.x < .05 && rb.velocity.y < .05)
         {
@@ -80,6 +90,31 @@ public class PlayerBehavior : MonoBehaviour
             hit = false;
         }
 
+    }
+    public void RenderLine(Vector3 startPoint, Vector3 endPoint)
+    {
+        lr.positionCount = 2;
+        Vector3[] points = new Vector3[2];
+        points[0] = startPoint;
+        points[1] = endPoint;
+        lr.SetPositions(points);
+
+        if ((Vector2.Distance(startPoint, endPoint)) > thresholdTriggerThree && Stats.GetMomentum() > 40f)
+        {
+            lr.startColor = Color.red;
+        }
+        else if ((Vector2.Distance(startPoint, endPoint)) > thresholdTriggerTwo && Stats.GetMomentum() > 25f)
+        {
+            lr.startColor = Color.yellow;
+        }
+        else
+        {
+            lr.startColor = Color.green;
+        }
+    }
+    public void EndLine()
+    {
+        lr.positionCount = 0;
     }
     public void Reset()
     {

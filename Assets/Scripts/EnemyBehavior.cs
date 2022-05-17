@@ -14,6 +14,11 @@ public class EnemyBehavior : MonoBehaviour
 
     public GameManager gM;
 
+    private void Start()
+    {
+        gM = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerBehavior>() != null && enemyType == EnemyType.Destroy)
