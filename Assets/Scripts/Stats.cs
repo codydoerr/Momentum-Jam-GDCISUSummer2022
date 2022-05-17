@@ -4,11 +4,13 @@ using UnityEngine;
 
 public static class Stats
 {
+
+    public static int currentMomentumUpgrade, currentStaminaUpgrade, currentDifficultyUpgrade;
+    public static int runs;
     private static float momentum = 10;
     private static int stamina = 5;
     private static int difficulty = 1;
     private static int score = 0;
-
     private static int currentTutorialScene = 0;
 
     public static int GetCurrentTutorialScene()
