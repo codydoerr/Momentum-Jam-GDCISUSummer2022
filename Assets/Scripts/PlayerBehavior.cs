@@ -145,9 +145,7 @@ public class PlayerBehavior : MonoBehaviour
         if (collision.gameObject.tag == "Exit")
         {
             Debug.Log("Level Complete");
-            //win game
-            //bring up rewards
-            //go to menu
+            
         }
     }
 }

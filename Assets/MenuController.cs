@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
+using UnityEngine.UI;
 public class MenuController : MonoBehaviour
 {
     public int[] momUpCost;
     public int[] stamUpCost;
     public int[] diffUpCost;
 
+    public TMP_Text totalScore;
+    public TMP_Text lastRunScore;
+    public TMP_Text runTotal;
+    public TMP_Text startText;
+
     public GameObject upgradeMomentum, momentumAvailable, momentumRestricted;
     public GameObject upgradeStamina, staminaAvailable, staminaRestricted;
     public GameObject upgradeDifficulty, difficultyAvailable, difficultyRestricted;
 
-
+    private void Update()
+    {
+        totalScore.text = ""+Stats.GetScore();
+    }
     public void CheckCost(string upgrade)
     {
         if(upgrade.Equals("Momentum"))

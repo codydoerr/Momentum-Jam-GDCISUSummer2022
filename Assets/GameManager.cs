@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     int curScore;
     int totalScore;
 
+    GameObject currentLevel;
+
     public GameObject staminaAmt;
     public GameObject scoreAmt;
 
@@ -40,10 +42,17 @@ public class GameManager : MonoBehaviour
     }
     public void PauseGame()
     {
-        if (Time.timeScale == 0)
+        if (Time.timeScale == 0 && lvl.levelLoaded)
         {
             PopupMenu.SetActive(true);
-        }else if(Time.timeScale == 1)
+            PopupMenu.GetComponent<MenuController>().startText.text = "NEW RUN";
+        }
+        else if (Time.timeScale == 0 && !lvl.levelLoaded)
+        {
+            PopupMenu.SetActive(true);
+            PopupMenu.GetComponent<MenuController>().startText.text = "START RUN";
+        }
+        else if(Time.timeScale == 1)
         {
             PopupMenu.SetActive(false);
         }
@@ -55,25 +64,41 @@ public class GameManager : MonoBehaviour
     }
     public void LoadLevel()
     {
+        curScore = 0;
         if(Stats.GetDifficulty() == 0)
         {
-
+            lvl.LoadEasyScene(Random.Range(0, lvl.easyScenes.Length - 1));
+            lvl.levelLoaded = true;
         }
         else if (Stats.GetDifficulty() == 1)
         {
-
+            lvl.LoadMediumScene(Random.Range(0, lvl.mediumScenes.Length - 1));
+            lvl.levelLoaded = true;
         }
         else if (Stats.GetDifficulty() == 2)
         {
-
+            Instantiate(lvl.LoadHardScene(Random.Range(0, lvl.hardScenes.Length - 1)),transform.position,Quaternion.identity);
+            lvl.levelLoaded = true;
         }
+    }
+    public void LoadTutorial()
+    {
+        Instantiate(lvl.LoadTutorialScene(0),transform.position,Quaternion.identity);
+        lvl.levelLoaded = true;
     }
     public void LoseGame()
     {
         curScore /= 2;
         Stats.UpdateScore(curScore);
-        
-        //end game
-        //load menu
+        curScore = 0;
+        Instantiate(lvl.UnloadLevel(),transform.position,Quaternion.identity);
+        lvl.levelLoaded = false;
+    }
+    public void WinGame()
+    {
+        Stats.UpdateScore(curScore);
+        curScore = 0;
+        Instantiate(lvl.UnloadLevel(), transform.position, Quaternion.identity);
+        lvl.levelLoaded = false;
     }
 }

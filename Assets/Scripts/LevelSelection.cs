@@ -5,30 +5,35 @@ using UnityEngine.SceneManagement;
 
 public class LevelSelection : MonoBehaviour
 {
-    public Scene[] tutorialScenes;
-    public Scene[] easyScenes;
-    public Scene[] mediumScenes;
-    public Scene[] hardScenes;
+    public GameObject[] tutorialScenes;
+    public GameObject[] easyScenes;
+    public GameObject[] mediumScenes;
+    public GameObject[] hardScenes;
 
     public bool levelLoaded;
 
     public GameObject unloadedLevel;
 
-    public Scene LoadTutorialScene(int index)
+    public GameObject LoadTutorialScene(int index)
     {
         return tutorialScenes[index];
         Stats.SetTutorialScene();
     }
-    public Scene LoadEasyScene(int index)
+    public GameObject LoadEasyScene(int index)
     {
         return easyScenes[index];
     }
-    public Scene LoadMediumScene(int index)
+    public GameObject LoadMediumScene(int index)
     {
         return mediumScenes[index];
     }
-    public Scene LoadHardScene(int index)
+    public GameObject LoadHardScene(int index)
     {
         return hardScenes[index];
+    }
+    public GameObject UnloadLevel()
+    {
+        levelLoaded = false;
+        return unloadedLevel; 
     }
 }
