@@ -10,6 +10,10 @@ public class LevelSelection : MonoBehaviour
     public Scene[] mediumScenes;
     public Scene[] hardScenes;
 
+    public bool levelLoaded;
+
+    public GameObject unloadedLevel;
+
     public Scene LoadTutorialScene(int index)
     {
         return tutorialScenes[index];

@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
+    bool paused;
+
     public float power;
 
     public int thresholdTriggerTwo;
     public int thresholdTriggerThree;
     public Rigidbody2D rb;
     public LineRenderer lr;
+
+    public GameManager gM;
 
     public int maxStamina;
     public int curStamina;
@@ -32,6 +36,7 @@ public class PlayerBehavior : MonoBehaviour
     Vector3 endPoint;
     private void Start()
     {
+        gM = GameObject.Find("GameManager").GetComponent<GameManager>();
         lr = GetComponent<LineRenderer>();
         cam = Camera.main;
 
@@ -44,20 +49,20 @@ public class PlayerBehavior : MonoBehaviour
         minPower = maxPower * -1;
 
         maxStamina = Stats.GetStamina();
-
+        curStamina = maxStamina;
         startLocation = transform.position;
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !moving)
+        if (Input.GetMouseButtonDown(0) && !moving && !paused)
         {
             startPoint = cam.ScreenToWorldPoint(Input.mousePosition);
             startPoint.z = 15;
             Debug.Log(startPoint);
         }
 
-        if (Input.GetMouseButtonUp(0) && !moving)
+        if (Input.GetMouseButtonUp(0) && !moving && !paused)
         {
             endPoint = cam.ScreenToWorldPoint(Input.mousePosition);
             Debug.Log(endPoint);
@@ -74,7 +79,7 @@ public class PlayerBehavior : MonoBehaviour
                 // pop up lose screen
             }
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !paused)
         {
             Vector3 currentPoint = cam.ScreenToWorldPoint(Input.mousePosition);
             currentPoint.z = 15;
@@ -88,6 +93,20 @@ public class PlayerBehavior : MonoBehaviour
         {
             moving = false;
             hit = false;
+        }
+        if (Input.GetKeyDown(KeyCode.Escape) && !paused)
+        {
+            paused = true;
+            Time.timeScale = 0;
+            gM.PauseGame();
+
+
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && paused)
+        {
+            Time.timeScale = 1;
+            paused = false;
+            gM.PauseGame();
         }
 
     }
