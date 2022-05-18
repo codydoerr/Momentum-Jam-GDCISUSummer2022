@@ -13,6 +13,7 @@ public class MenuController : MonoBehaviour
     public TMP_Text lastRunScore;
     public TMP_Text runTotal;
     public TMP_Text startText;
+    public TMP_Text runsText;
 
     public GameObject upgradeMomentum, momentumAvailable, momentumRestricted;
     public GameObject upgradeStamina, staminaAvailable, staminaRestricted;
@@ -20,7 +21,8 @@ public class MenuController : MonoBehaviour
 
     private void Update()
     {
-        totalScore.text = ""+Stats.GetScore();
+        totalScore.text = "" + Stats.GetScore();
+        runsText.text = "" + Stats.runs;
     }
     public void CheckCost(string upgrade)
     {
@@ -90,6 +92,7 @@ public class MenuController : MonoBehaviour
         Stats.UpgradeMomentum(5);
         Stats.UpdateScore(-1 * momUpCost[Stats.currentMomentumUpgrade]);
         Stats.currentMomentumUpgrade++;
+        ClearAllSelections();
     }
     public void UpgradeMomRestricted()
     {
@@ -120,6 +123,7 @@ public class MenuController : MonoBehaviour
         Stats.UpgradeStamina(1);
         Stats.UpdateScore(-1 * stamUpCost[Stats.currentStaminaUpgrade]);
         Stats.currentStaminaUpgrade++;
+        ClearAllSelections();
     }
     public void UpgradeStamRestricted()
     {
@@ -150,6 +154,7 @@ public class MenuController : MonoBehaviour
         Stats.UpgradeDifficulty(1);
         Stats.UpdateScore(-1 * diffUpCost[Stats.currentDifficultyUpgrade]);
         Stats.currentDifficultyUpgrade++;
+        ClearAllSelections();
     }
     public void UpgradeDiffRestricted()
     {

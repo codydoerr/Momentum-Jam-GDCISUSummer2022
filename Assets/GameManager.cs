@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
     }
     public void LoadLevel()
     {
+        Stats.runs++;
         Time.timeScale = 1;
         curScore = 0;
         Destroy(currentLevel);
@@ -95,8 +96,10 @@ public class GameManager : MonoBehaviour
     public void LoadTutorial()
     {
         Time.timeScale = 1;
-        Instantiate(lvl.LoadTutorialScene(0),transform.position,Quaternion.identity);
+        Destroy(currentLevel);
+        Instantiate(lvl.LoadTutorialScene(Stats.GetCurrentTutorialScene()), Vector2.zero, Quaternion.identity);
         lvl.levelLoaded = true;
+        PauseGame();
     }
     public void LoseGame()
     {

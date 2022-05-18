@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 0
   target: {fileID: 0}
-  score: 10
+  score: 20
   power: 5
   gM: {fileID: 0}
 --- !u!68 &1852473351903466787

@@ -54,7 +54,12 @@ public static class Stats
     }
     public static int UpdateScore(int change)
     {
+
         score += change;
+        if (score < 0)
+        {
+            score = 0;
+        }
         return score;
     }
     public static float UpgradeDifficulty(int change)
