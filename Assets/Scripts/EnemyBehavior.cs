@@ -23,16 +23,64 @@ public class EnemyBehavior : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerBehavior>() != null && enemyType == EnemyType.Destroy)
         {
-            if (!collision.gameObject.GetComponent<PlayerBehavior>().hit)
+            if (Stats.GetMomentum() > 40f)
             {
-                Destroy(gameObject);
-                gM.AddScore(score);
-                collision.gameObject.GetComponent<PlayerBehavior>().hit = true;
+                if (!collision.gameObject.GetComponent<PlayerBehavior>().hit)
+                {
+                    Destroy(gameObject);
+                    gM.AddScore(score);
+                    collision.gameObject.GetComponent<PlayerBehavior>().hit = true;
+                }else if (!collision.gameObject.GetComponent<PlayerBehavior>().hitTwo)
+                {
+                    Destroy(gameObject);
+                    gM.AddScore(score);
+                    collision.gameObject.GetComponent<PlayerBehavior>().hitTwo = true;
+                }
+                else if (!collision.gameObject.GetComponent<PlayerBehavior>().hitThree)
+                {
+                    Destroy(gameObject);
+                    gM.AddScore(score);
+                    collision.gameObject.GetComponent<PlayerBehavior>().hitThree = true;
+                }
+                else
+                {
+                    Debug.Log("Reset to Start");
+                    collision.gameObject.GetComponent<PlayerBehavior>().Reset();
+                }
+            }
+            else if (Stats.GetMomentum() > 25f)
+            {
+                if (!collision.gameObject.GetComponent<PlayerBehavior>().hit)
+                {
+                    Destroy(gameObject);
+                    gM.AddScore(score);
+                    collision.gameObject.GetComponent<PlayerBehavior>().hit = true;
+                }
+                else if (!collision.gameObject.GetComponent<PlayerBehavior>().hitTwo)
+                {
+                    Destroy(gameObject);
+                    gM.AddScore(score);
+                    collision.gameObject.GetComponent<PlayerBehavior>().hitTwo = true;
+                }
+                else
+                {
+                    Debug.Log("Reset to Start");
+                    collision.gameObject.GetComponent<PlayerBehavior>().Reset();
+                }
             }
             else
             {
-                Debug.Log("Reset to Start");
-                collision.gameObject.GetComponent<PlayerBehavior>().Reset();
+                if (!collision.gameObject.GetComponent<PlayerBehavior>().hit)
+                {
+                    Destroy(gameObject);
+                    gM.AddScore(score);
+                    collision.gameObject.GetComponent<PlayerBehavior>().hit = true;
+                }
+                else
+                {
+                    Debug.Log("Reset to Start");
+                    collision.gameObject.GetComponent<PlayerBehavior>().Reset();
+                }
             }
         }
         if (collision.gameObject.GetComponent<PlayerBehavior>() != null && enemyType == EnemyType.Stopper)

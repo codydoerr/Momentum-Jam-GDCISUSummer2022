@@ -16,8 +16,9 @@ public class LevelSelection : MonoBehaviour
 
     public GameObject LoadTutorialScene(int index)
     {
-        return tutorialScenes[index];
+        int currentIndex = index;
         Stats.SetTutorialScene();
+        return tutorialScenes[currentIndex];
     }
     public GameObject LoadEasyScene(int index)
     {

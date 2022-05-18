@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBehavior : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class PlayerBehavior : MonoBehaviour
 
     public bool moving;
     public bool hit;
+    public bool hitTwo;
+    public bool hitThree;
 
     public GameObject arrowParent;
     public GameObject arrowBody;
@@ -34,6 +37,11 @@ public class PlayerBehavior : MonoBehaviour
     Vector2 force;
     Vector3 startPoint;
     Vector3 endPoint;
+    private void Awake()
+    {
+        maxStamina = Stats.GetStamina();
+        curStamina = maxStamina;
+    }
     private void Start()
     {
         gM = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -43,7 +51,6 @@ public class PlayerBehavior : MonoBehaviour
         moving = false;
         hit = false;
 
-        curStamina = maxStamina;
 
         maxPower = new Vector2(Stats.GetMomentum(), Stats.GetMomentum());
         minPower = maxPower * -1;
@@ -73,11 +80,6 @@ public class PlayerBehavior : MonoBehaviour
             rb.AddForce(force * power, ForceMode2D.Impulse);
             moving = true;
             curStamina--;
-            if(curStamina <= 0 && (rb.velocity.x < .05 && rb.velocity.y < .05))
-            {
-                Debug.Log("Ran Out of Stamina");
-                gM.LoseGame();
-            }
         }
         if (Input.GetMouseButton(0) && !paused && !moving)
         {
@@ -93,6 +95,8 @@ public class PlayerBehavior : MonoBehaviour
         {
             moving = false;
             hit = false;
+            hitTwo = false;
+            hitThree = false;
         }
         if (Input.GetKeyDown(KeyCode.Escape) && !paused)
         {
@@ -105,6 +109,11 @@ public class PlayerBehavior : MonoBehaviour
             Time.timeScale = 1;
             paused = false;
             gM.PauseGame();
+        }
+        if (curStamina <= 0 && (rb.velocity.x < .05 && rb.velocity.y < .05))
+        {
+            Debug.Log("Ran Out of Stamina");
+            gM.LoseGame();
         }
     }
     public void RenderLine(Vector3 startPoint, Vector3 endPoint)
@@ -140,7 +149,16 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (collision.gameObject.tag == "Exit")
         {
-            gM.WinGame();
+            if(GameObject.FindGameObjectsWithTag("Tutorial")!=null)
+            {
+                gM.LoadTutorial();
+            }
+            else
+            {
+                gM.WinGame();
+            }
+
         }
+
     }
 }

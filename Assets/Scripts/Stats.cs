@@ -20,7 +20,7 @@ public static class Stats
     public static void SetTutorialScene()
     {
         currentTutorialScene++;
-        if (currentTutorialScene > 5)
+        if (currentTutorialScene > 4)
         {
             currentTutorialScene = 0;
         }

@@ -15,6 +15,7 @@ public class MenuController : MonoBehaviour
     public TMP_Text startText;
     public TMP_Text runsText;
 
+
     public GameObject upgradeMomentum, momentumAvailable, momentumRestricted;
     public GameObject upgradeStamina, staminaAvailable, staminaRestricted;
     public GameObject upgradeDifficulty, difficultyAvailable, difficultyRestricted;
