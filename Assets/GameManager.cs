@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject scoreAmt;
 
     public LevelSelection lvl;
+    public MenuController mC;
 
     public GameObject PopupMenu;
 
@@ -31,14 +32,18 @@ public class GameManager : MonoBehaviour
     {
         lvl = GetComponent<LevelSelection>();
         totalScore = Stats.GetScore();
-        player = GameObject.Find("Player");
+        currentLevel = Instantiate(lvl.UnloadLevel(), transform.position, Quaternion.identity);
+        lvl.levelLoaded = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        scoreAmt.GetComponent<TMP_Text>().text = ""+curScore;
-        staminaAmt.GetComponent<TMP_Text>().text = "" + player.GetComponent<PlayerBehavior>().curStamina;
+        if (player)
+        {
+            scoreAmt.GetComponent<TMP_Text>().text = "" + curScore;
+            staminaAmt.GetComponent<TMP_Text>().text = "" + player.GetComponent<PlayerBehavior>().curStamina;
+        }
     }
     public void PauseGame()
     {
@@ -64,41 +69,60 @@ public class GameManager : MonoBehaviour
     }
     public void LoadLevel()
     {
+        Time.timeScale = 1;
         curScore = 0;
+        Destroy(currentLevel);
         if(Stats.GetDifficulty() == 0)
         {
-            lvl.LoadEasyScene(Random.Range(0, lvl.easyScenes.Length - 1));
+            currentLevel = Instantiate(lvl.LoadEasyScene(Random.Range(0, lvl.easyScenes.Length - 1)),Vector2.zero,Quaternion.identity);
+            player = GameObject.Find("Player");
             lvl.levelLoaded = true;
         }
         else if (Stats.GetDifficulty() == 1)
         {
-            lvl.LoadMediumScene(Random.Range(0, lvl.mediumScenes.Length - 1));
+            currentLevel = Instantiate(lvl.LoadMediumScene(Random.Range(0, lvl.mediumScenes.Length - 1)), Vector2.zero, Quaternion.identity);
+            player = GameObject.Find("Player");
             lvl.levelLoaded = true;
         }
         else if (Stats.GetDifficulty() == 2)
         {
-            Instantiate(lvl.LoadHardScene(Random.Range(0, lvl.hardScenes.Length - 1)),transform.position,Quaternion.identity);
+            currentLevel = Instantiate(lvl.LoadHardScene(Random.Range(0, lvl.hardScenes.Length - 1)), Vector2.zero, Quaternion.identity);
+            player = GameObject.Find("Player");
             lvl.levelLoaded = true;
         }
+        PauseGame();
     }
     public void LoadTutorial()
     {
+        Time.timeScale = 1;
         Instantiate(lvl.LoadTutorialScene(0),transform.position,Quaternion.identity);
         lvl.levelLoaded = true;
     }
     public void LoseGame()
     {
+        Time.timeScale = 0;
+        PauseGame();
         curScore /= 2;
+        mC.lastRunScore.text = ""+curScore;
         Stats.UpdateScore(curScore);
         curScore = 0;
-        Instantiate(lvl.UnloadLevel(),transform.position,Quaternion.identity);
+        Destroy(currentLevel);
+        currentLevel = Instantiate(lvl.UnloadLevel(),transform.position,Quaternion.identity);
         lvl.levelLoaded = false;
     }
     public void WinGame()
     {
+        Time.timeScale = 0;
+        PauseGame();
         Stats.UpdateScore(curScore);
+        mC.lastRunScore.text = "" + curScore;
         curScore = 0;
-        Instantiate(lvl.UnloadLevel(), transform.position, Quaternion.identity);
+        Destroy(currentLevel);
+        currentLevel = Instantiate(lvl.UnloadLevel(), transform.position, Quaternion.identity);
         lvl.levelLoaded = false;
+    }
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }

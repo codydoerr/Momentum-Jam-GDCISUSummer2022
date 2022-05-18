@@ -121,7 +121,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114160262}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4437651365907734786}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &173838178
 GameObject:
   m_ObjectHideFlags: 0
@@ -3545,7 +3557,7 @@ GameObject:
   - component: {fileID: 2540278789042839596}
   - component: {fileID: 1442805126897430470}
   m_Layer: 5
-  m_Name: Panel (1)
+  m_Name: Score Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3813,6 +3825,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4437651365907734788}
   - component: {fileID: 4437651365907734789}
+  - component: {fileID: 1963026422}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3851,10 +3864,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   staminaAmt: {fileID: 5566983208987163424}
   scoreAmt: {fileID: 4511655294950985684}
-  lvl: {fileID: 0}
+  lvl: {fileID: 1963026422}
   PopupMenu: {fileID: 6849086145959389240}
   player: {fileID: 0}
   exit: {fileID: 4437651364741113299}
+--- !u!114 &1963026422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4437651365907734786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bcde95b37fb3dd4cbc1239005b5c582, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorialScenes:
+  - {fileID: 1988649288089630468, guid: 2123892c05e4d084eaad7c87c79c0ed3, type: 3}
+  - {fileID: 3216977338641762331, guid: 101a52de6e9c1de4cbacecf3da201572, type: 3}
+  - {fileID: 579435693520727428, guid: f395b3661b9cfdf4c942473334229a7d, type: 3}
+  - {fileID: 1684917846900795989, guid: 1059851a3897eb840b18256d53538416, type: 3}
+  - {fileID: 6151374364205694688, guid: ca6cbc5c6476f2a459fa73a8ab7543a9, type: 3}
+  easyScenes:
+  - {fileID: 4547880927195442098, guid: e93619ee0351a8d4399b695324ba1399, type: 3}
+  - {fileID: 6528927684865166783, guid: 4aa4ba2a70018a24090f35f9c3b1047d, type: 3}
+  - {fileID: 1806658565866830503, guid: 5088a4e34ba5dbd46bd9dfdda72512bd, type: 3}
+  - {fileID: 1477020267385760094, guid: a1913a25d0fc1f044a5ad0c55a7f4f4d, type: 3}
+  - {fileID: 8927369637220072203, guid: 64944216d5536494687a18a8864b8601, type: 3}
+  mediumScenes:
+  - {fileID: 7358695133602708889, guid: 14f853756bdb27641a24205282877542, type: 3}
+  - {fileID: 3075607641625954179, guid: 76c254229dc1b3f4b8f7c34a588f8d67, type: 3}
+  - {fileID: 4999698624927407039, guid: 5933452c45da2e348b44a403bea16181, type: 3}
+  - {fileID: 1300332864744246118, guid: 4db8d59225dc53b48a4fb68013447c08, type: 3}
+  - {fileID: 9160163638805109945, guid: b447565f91ec2ee45ad9f9322802c381, type: 3}
+  hardScenes:
+  - {fileID: 7358695133602708889, guid: 14f853756bdb27641a24205282877542, type: 3}
+  - {fileID: 3075607641625954179, guid: 76c254229dc1b3f4b8f7c34a588f8d67, type: 3}
+  - {fileID: 4999698624927407039, guid: 5933452c45da2e348b44a403bea16181, type: 3}
+  - {fileID: 1300332864744246118, guid: 4db8d59225dc53b48a4fb68013447c08, type: 3}
+  - {fileID: 9160163638805109945, guid: b447565f91ec2ee45ad9f9322802c381, type: 3}
+  levelLoaded: 1
+  unloadedLevel: {fileID: 0}
 --- !u!1 &4511655294950985684
 GameObject:
   m_ObjectHideFlags: 0
@@ -5024,13 +5075,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 4437651365907734789}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: LoadLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5410,6 +5461,10 @@ MonoBehaviour:
   momUpCost: 0a0000000f0000001400000023000000370000005a00000091000000eb00000077010000
   stamUpCost: 5a00000091000000eb0000007701000062020000
   diffUpCost: eb0000007701000062020000
+  totalScore: {fileID: 1755648667}
+  lastRunScore: {fileID: 1668600703}
+  runTotal: {fileID: 6131972310964566567}
+  startText: {fileID: 4935758417521254023}
   upgradeMomentum: {fileID: 3914987284078827841}
   momentumAvailable: {fileID: 3489213018199233454}
   momentumRestricted: {fileID: 2385520681872626254}
@@ -5579,13 +5634,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 4437651365907734789}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ExitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

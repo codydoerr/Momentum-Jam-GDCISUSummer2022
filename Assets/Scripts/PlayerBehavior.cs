@@ -73,13 +73,13 @@ public class PlayerBehavior : MonoBehaviour
             rb.AddForce(force * power, ForceMode2D.Impulse);
             moving = true;
             curStamina--;
-            if(curStamina <= 0)
+            if(curStamina <= 0 && (rb.velocity.x < .05 && rb.velocity.y < .05))
             {
                 Debug.Log("Ran Out of Stamina");
-                // pop up lose screen
+                gM.LoseGame();
             }
         }
-        if (Input.GetMouseButton(0) && !paused)
+        if (Input.GetMouseButton(0) && !paused && !moving)
         {
             Vector3 currentPoint = cam.ScreenToWorldPoint(Input.mousePosition);
             currentPoint.z = 15;
@@ -99,8 +99,6 @@ public class PlayerBehavior : MonoBehaviour
             paused = true;
             Time.timeScale = 0;
             gM.PauseGame();
-
-
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && paused)
         {
@@ -108,16 +106,14 @@ public class PlayerBehavior : MonoBehaviour
             paused = false;
             gM.PauseGame();
         }
-
     }
     public void RenderLine(Vector3 startPoint, Vector3 endPoint)
-    {
+    {//need to make it reference global coordinates and not local
         lr.positionCount = 2;
         Vector3[] points = new Vector3[2];
         points[0] = startPoint;
         points[1] = endPoint;
         lr.SetPositions(points);
-
         if ((Vector2.Distance(startPoint, endPoint)) > thresholdTriggerThree && Stats.GetMomentum() > 40f)
         {
             lr.startColor = Color.red;
@@ -144,8 +140,7 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (collision.gameObject.tag == "Exit")
         {
-            Debug.Log("Level Complete");
-            
+            gM.WinGame();
         }
     }
 }
